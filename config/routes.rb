@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      git 'attendances/edit=one_moth'
     end
     resources :attendances, only: :update #
   end
