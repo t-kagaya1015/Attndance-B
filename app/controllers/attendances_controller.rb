@@ -32,8 +32,9 @@ class AttendancesController < ApplicationController
   end
   
   private
-  #　一か月分の勤怠情報を扱います。
+  
+  # 一か月分の勤怠情報を扱います。
   def attendances_params
     params.require(:user).permit(attendances: [:started_at, :finished_at, :note])[:attendances]
-  end   
+  end
 end

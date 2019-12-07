@@ -19,4 +19,3 @@ class Attendance < ApplicationRecord
     end
   end
 end
-lll
