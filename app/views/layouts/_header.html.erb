@@ -1,19 +1,19 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "勤怠システム", signup_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "トップへ", root_path, class: "header-list" %></li>
-        <% if logged_in? %>
-        <% if current_user.admin? %>
-          <li><%= link_to "ユーザー名", users_path, class: "header-list" %></li>
-          <li><%= link_to "基本情報の更新", edit_basic_info_user_path(current_user), class: "heater-list" %></li>
-          <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              アカウント<b class="dropdown-menu"></b>
-              </a>
-          </li>
+     <%= link_to "勤怠システム", signup_path, id: "logo" %>
+   <nav>
+    <ul class="nav navbar-nav navbar-right">
+     <li><%= link_to "トップへ", root_path, class: "header-list" %></li>
+         <% if logged_in? %>
+         <% if current_user.admin? %>
+      <li><%= link_to "ユーザー名", users_path, class: "header-list" %></li>
+      <li><%= link_to "基本情報の更新", edit_basic_info_user_path(current_user), class: "heater-list" %></li>
+         <% end %>
+       <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          アカウント<b class="caret"></b>
+        </a>
+         <ul class="dropdown-menu">
               <li><%= link_to "勤怠", current_user %></li>
               <li><%= link_to "設定", edit_user_path(current_user) %></li>
               <li class="divider"></li>
