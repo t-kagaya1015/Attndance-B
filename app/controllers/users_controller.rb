@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def edit_basic_info
+  def edit_basic_infos
   end
 
   def update_basic_info
