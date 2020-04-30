@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   end
 
   def edit_basic_info
-    @user = User. edit_basic_info(current_user)
   end
 
   def update_basic_info
