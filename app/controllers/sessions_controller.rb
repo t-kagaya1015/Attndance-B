@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       flash[:info] = 'すでにログインしています。'
-    redirect_to user_path
+    redirect_to users_url
     end
   end
 
