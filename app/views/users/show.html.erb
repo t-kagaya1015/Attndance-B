@@ -22,7 +22,9 @@
 </div>
 
 <div class="btn-users-show">
+  <% if current_user.admin? %>
   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default" %>
+  <% end %> 
 </div>
 
 <div>
@@ -31,13 +33,14 @@
       <tr varign = "bottom">
         <th rowspan = "2">日付</th>
         <th rowspan = "2">曜日</th>
-        
+        <th></th>
         <th colspan = "3">出社</th>
         <th colspan = "3">退社</th>
         <th rowspan = "2">在社時間</th>
         <th rowspan = "2">備考</th>
       </tr>
       <tr>
+        <th></th>
         <th>時</th>
         <th>分</th>
         <th></th>

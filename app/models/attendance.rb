@@ -7,7 +7,7 @@ class Attendance < ApplicationRecord
   # 出勤時間が存在しない場合、退勤時間は無効
   validate :finished_at_is_invalid_without_a_started_at
   #　出勤か退勤のどちらかだけでは、更新できない
-  validate :finished_at or started_at   
+  #validate :finished_at_or_started_at_blank 
   # 出勤・退勤時間どちらも存在する時、出勤時間より早い退勤時間は無効
   validate :started_at_than_finished_at_fast_if_invalid
 
