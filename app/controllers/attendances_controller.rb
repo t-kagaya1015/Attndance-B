@@ -35,14 +35,13 @@ class AttendancesController < ApplicationController
       attendances_params.each do |id, item|
         attendance = Attendance.find(id)
         attendance.update_attributes!(item)
-      if item[:stared_at].present? && item[:finished_at].blank?
-             flash[:danger] = "更新できませんでした。出社時間のみの更新はできません。"
-             redirect_to attendances_edit_one_month_user_url(params[:user_id])and return
-          if item[:stared_at].blank? && item[:finished_at].presnt?
-             flash[:danger] = "更新できませんでした。退社時刻のみの更新はできません。"
-             redirect_to attendances_edit_one_month_user_url(params[:user_id])and return
-          end 
-      end 
+     if attendances.item[:"在社時間"].nil?
+       if attendancee.started_at.blank? && finished_at.present?
+         flash[:dangere] = "無効な入力テータがあった為更新はできません。"
+       else
+          redirect_to user_url(date: params[:date]) and return
+       end   
+     end 
       flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
       redirect_to user_url(date: params[:date]) and return
      rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
