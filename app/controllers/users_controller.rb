@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     redirect_to users_params[:id]
   end
 
-  def edit_basic_infos
+  def edit_basic_info
     
   end
 

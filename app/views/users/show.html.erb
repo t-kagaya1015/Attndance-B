@@ -48,40 +48,35 @@
         <th></th>
       </tr>
     </thead>
-
-   
-
-    <tbody>
-     <% @attendances.each do |day| %>
-  <tr>
-    <td><%= l(day.worked_on, format: :short) %></td>
-    <td><%= $days_of_the_week[day.worked_on.wday] %></td>
-    
-    <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
-    <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td>
-  
-     <td>
-      <% if btn_text = attendance_state(day) %>
-        <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
-      <% end %>
-    </td>
-    <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
-    <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td>
-    <td>
-      <% if day.started_at.present? && day.finished_at.present? %>
-        <%= str_times = working_times(day.started_at, day.finished_at) %>
-        <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
-      <% end %>
-    </td>
-    <td></td>
-    <td><%= day.note %></td>
-  </tr>
-<% end %>
-    </tbody>
+  <tbody>
+  <% @attendances.each do |day| %>
+    <tr>
+      <td><%= l(day.worked_on, format: :short) %></td>
+      <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+      <td><%= format_hour(day.started_at) if day.started_at.present? %></td>
+      <td><%= format_min(day.started_at) if day.started_at.present? %></td>
+      <td>
+        <% if btn_text = attendance_state(day) %>
+          <%= link_to "#{btn_text}登録", user_attendance_path(@user, day), method: :patch, class: "btn btn-primary btn-attendance" %>
+        <% end %>
+      </td>
+      <td><%= format_hour(day.finished_at) if day.finished_at.present? %></td>
+      <td><%= format_min(day.finished_at) if day.finished_at.present? %></td>
+      <td> 
+        <% if day.started_at.present? && day.finished_at.present? %>
+         <!--%= working_times(day.started_at.floor_to(15.minutes)), day.finished_at.floor_to(15.minutes)) %-->
+        <% end %>
+      </td>
+      <td></td>
+      <td><%= day.note %></td>
+    </tr>
+  <% end %>
+  </tbody>
 
     <tfoot>
       <!--rowspan:縦結合、colspan：横結合-->
-      <tr>
+      <tr>ttps://docs.ruby-lang.org/ja/latest/doc/print_format.htm
+
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
         <td colspan="2">累計在社時間</td>
