@@ -60,8 +60,7 @@
         <% else %>
         <%= $days_of_the_week[day.worked_on.wday] %>
         <% end %> 
-      </td>
-      <!--<td><!--%= $days_of_the_week[day.worked_on.wday] %></td>-->
+      </td>  <!--　時間を15分設定にする。-->
       <td><%= format_hour(day.started_at) if day.started_at.present? %></td>
       <td><%= format_min(day.started_at) if day.started_at.present? %></td>
       <td>
