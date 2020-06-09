@@ -1,5 +1,5 @@
-<% provide(:title, "Edit") %>
-<% provide(:class_text, 'user--edit') %>
+<% provide(:title, "index") %>
+<% provide(:class_text, 'user--index') %>
 <h1>User search</h1>
 <%= form_with url: search_users_path, method: :get, local: true do |f| %>
   <%= f.text_field :name %>
