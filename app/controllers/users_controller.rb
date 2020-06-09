@@ -68,4 +68,12 @@ class UsersController < ApplicationController
     def basic_info_params
       params.require(:user).permit(:department, :basic_time, :work_time)
     end
+    
+    def search
+      if params[:name].present?
+        @users = User.where('name LINK ?', "%#{params[:name]}%")
+      else
+        @users = User.none
+      end 
+    end 
 end
