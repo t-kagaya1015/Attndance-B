@@ -6,15 +6,23 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
 
   def index
+    @users = User.all
     @users = User.paginate(page: params[:page])
+    # パラメータとして名前か性別を受け取っている場合は絞って検索する
+    if params[:name].present?
+    @users = @users.get_by_name params[:name]
+    end
   end
 
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
+    # データを閲覧する画面を表示するためのAction
+    @user = User.find(params[:id]) 
   end
 
   def new
     @user = User.new
+    
   end
 
   def create
@@ -29,9 +37,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
@@ -42,8 +52,10 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
+    @user = User.find(params[:id])
     flash[:success] = "#{@user.name}のデータを削除しました。"
-    redirect_to users_params[:id]
+    @user.destroy
+    redirect_to users_path
   end
 
   def edit_basic_info
