@@ -10,7 +10,7 @@
       <%= form_tag(users_path, method: "get") do %>
       <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
       <!--%= label_tag :name, "性別" %>-->
-      <!--%= select_tag :gender, options_for_select(User.genders), include_blank: true %>-->
+      <% select_tag :gender, options_for_select(User.genders), include_blank: true %>
       <%= submit_tag "検索" %>
       <% end %>
 </div>
