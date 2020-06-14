@@ -8,12 +8,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @users = User.paginate(page: params[:page])
+    #@users = query
     # パラメータとして名前か性別を受け取っている場合は絞って検索する
     if params[:name].present?
     @users = @users.get_by_name params[:name]
     end
   end
-
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
     # データを閲覧する画面を表示するためのAction
@@ -87,5 +87,13 @@ class UsersController < ApplicationController
       else
         @users = User.none
       end 
-    end 
+    end
+    
+   # def query
+    #  if params[:user].present? && params[:user][:name]
+      # User.were('LOWR(name) LIKE ?', "%#{params[:user][:name]}%")
+      #else
+       # User.all
+      #end
+    #end
 end

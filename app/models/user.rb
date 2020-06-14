@@ -6,9 +6,9 @@ class User < ApplicationRecord
     where("name like ?", "%#{name}%")
     }
     # 性別による絞り込み
-    #scope :get_by_gender, ->(gender) {
-   # where(gender: gender)
-   # }
+    scope :get_by_gender, ->(gender) {
+    where(gender: gender)
+    }
  
 
   has_many :attendances, dependent: :destroy
