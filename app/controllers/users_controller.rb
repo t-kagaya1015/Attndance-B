@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update, :show]
   before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
   before_action :set_one_month, only: :show
 
@@ -72,6 +72,10 @@ class UsersController < ApplicationController
   end
 
   private
+  
+    #def if_not_admin
+    #redirect_to root_path unless current_user.admin?
+    #end
 
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
@@ -81,19 +85,19 @@ class UsersController < ApplicationController
       params.require(:user).permit(:department, :basic_time, :work_time)
     end
     
-    def search
-      if params[:name].present?
-        @users = User.where('name LINK ?', "%#{params[:name]}%")
-      else
-        @users = User.none
-      end 
-    end
+    #def search
+      #if params[:name].present?
+       # @users = User.where('name LINK ?', "%#{params[:name]}%")
+     # else
+        #@users = User.none
+     # end 
+   # end
     
-   # def query
-    #  if params[:user].present? && params[:user][:name]
-      # User.were('LOWR(name) LIKE ?', "%#{params[:user][:name]}%")
-      #else
-       # User.all
-      #end
-    #end
+   def query
+      if params[:user].present? && params[:user][:name]
+       User.were('LOWR(name) LIKE ?', "%#{params[:user][:name]}%")
+      else
+        User.all
+      end
+   end
 end

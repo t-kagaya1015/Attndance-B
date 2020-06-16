@@ -50,7 +50,13 @@
 #table-users {
   td {
     vertical-align: middle;
-  }  
+  }
+  
+ .table-cell-test th,
+  .table-cell-test td {
+    display: table-cell;
+  }
+ 
 }
 
 /* 基本情報編集モーダルウインドウ */

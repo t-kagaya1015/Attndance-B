@@ -1,29 +1,37 @@
 <% provide(:title, 'All Users') %>
 <h1>ユーザ一覧</h1>
-
-<div class="col-md-10 col-md-offset-1">
-  <%= will_paginate %>
-  <title><%= full_title(yield(:title)) %></title>
-  <table class="table table-condensed table-hover" id="table-users">
-    <thead>
-      <div>
-      <%= form_tag(users_path, method: "get") do %>
-      <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
-      <!--%= label_tag :name, "性別" %>-->
-      <%= select_tag :gender, options_for_select(User.genders), include_blank: true %>
-      <%= submit_tag "検索" %>
-      <% end %>
-</div>
-      <tr>
-        <th><%= User.human_attribute_name :name %></th>
-        <th class="center"><%= User.human_attribute_name :department %></th>
-        <% if current_user.admin? %>
-          <th class="center"><%= User.human_attribute_name :basic_time %></th>
-          <th class="center"><%= User.human_attribute_name :work_time %></th>
-        <% end %>
-        <th></th>
-      </tr>
-    </thead>
+ <thead>
+  <div class="row">
+  <div class="boxContainer">
+   <div class="box">
+      <%= will_paginate %>
+       <div class="box">  <!--曖昧検索ボタン変更まだ不可-->
+          <%= form_tag(users_path, method: "get") do %>
+          <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
+          <!--%= label_tag :name, "性別" %>-->
+          <%= select_tag :gender, options_for_select(User.genders), include_blank: true %>
+          <%= submit_tag "検索" %>
+          <% end %>
+      </div>
+   </div>
+      <title><%= full_title(yield(:title)) %></title>
+     
+    </div>
+  </div>
+    <table class="table table-condensed table-hover" id="table-users">
+  </div>
+ </div>
+</thead>
+        <tr>
+          <th><%= User.human_attribute_name :name %></th>
+          <th class="center"><%= User.human_attribute_name :department %></th>
+          <% if current_user.admin? %>
+            <th class="center"><%= User.human_attribute_name :basic_time %></th>
+            <th class="center"><%= User.human_attribute_name :work_time %></th>
+          <% end %>
+          <th></th>
+        </tr>
+ </thead>
 
     <% @users.each do |user| %>
       <tr>
