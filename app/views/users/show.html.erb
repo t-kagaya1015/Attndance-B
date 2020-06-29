@@ -22,9 +22,11 @@
 </div>
 
 <div class="btn-users-show">
-  <% if current_user.admin? %>
-  <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default" %>
-  <% end %> 
+ <% if logged_in? %>
+   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default #{"disabled" unless current_user.admin?}" %> 
+ <% else %>
+   <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default" %>
+ <% end %>
 </div>
 
 <div>
@@ -83,7 +85,7 @@
 
     <tfoot>
       <!--rowspan:縦結合、colspan：横結合-->
-      <tr>ttps://docs.ruby-lang.org/ja/latest/doc/print_format.htm
+      <tr>
 
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
