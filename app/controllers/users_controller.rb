@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.name
     if @user.update_attributes(user_params)
       flash[:success] = "ユーザー情報を更新しました。"
       redirect_to @user
@@ -63,6 +63,7 @@ class UsersController < ApplicationController
   end
 
   def update_basic_info
+  　 @users = Users.all
     if @user.update_attributes(basic_info_params)
       flash[:success] = "#{@user.name}の基本情報を更新しました。"
     else
@@ -75,8 +76,15 @@ class UsersController < ApplicationController
   
     def admin_user
     redirect_to root_path unless current_user.admin?
+    end
+    
+    def current_user
+      @micropost = current_user.microposts.find_by(id: params[:id])
+       unless @micropost
+         redirect_to root_url
+       end 
     end 
-
+    
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
     end
@@ -93,11 +101,11 @@ class UsersController < ApplicationController
      # end 
    # end
     
-   def query
-      if params[:user].present? && params[:user][:name]
-       User.were('LOWR(name) LIKE ?', "%#{params[:user][:name]}%")
-      else
-        User.all
-      end
-   end
+  def query
+    if params[:user].present? && params[:user][:name]
+     User.were('LOWR(name) LIKE ?', "%#{params[:user][:name]}%")
+    else
+      User.all
+    end
+  end
 end
