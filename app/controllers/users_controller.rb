@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy, :edit_basic_info, :update_basic_info]
+  before_action :admin_or_correct_user, only: [:edit, :update, :destroy, :edit_basic_info, :update_basic_info, :show]
   before_action :set_one_month, only: :show
 
   def index
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @users = @users.get_by_name params[:name]
     end
   end
+  
   def show
     @worked_sum = @attendances.where.not(started_at: nil).count
     # データを閲覧する画面を表示するためのAction
@@ -22,7 +23,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    
   end
 
   def create
@@ -59,7 +59,6 @@ class UsersController < ApplicationController
   end
 
   def edit_basic_info
-    
   end
 
   def update_basic_info
@@ -72,18 +71,13 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+
   private
   
     def admin_user
-    redirect_to root_path unless current_user.admin?
+     redirect_to root_path unless current_user.admin?
     end
-    
-    def current_user
-      @micropost = current_user.microposts.find_by(id: params[:id])
-       unless @micropost
-         redirect_to root_url
-       end 
-    end 
+
     
     def user_params
       params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
@@ -93,6 +87,13 @@ class UsersController < ApplicationController
       params.require(:user).permit(:department, :basic_time, :work_time)
     end
     
+    def admin_or_correct_user
+      @user = User.find(params[:user_id]) if @user.blank?
+      unless current_user?(@user) || current_user.admin?
+        flash[:danger] = "編集権限がありません."
+        redirect_to(root_url)
+      end 
+    end
     #def search
       #if params[:name].present?
        # @users = User.where('name LINK ?', "%#{params[:name]}%")
@@ -107,5 +108,5 @@ class UsersController < ApplicationController
     else
       User.all
     end
-  end
+  end 
 end
