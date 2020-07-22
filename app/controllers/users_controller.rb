@@ -62,13 +62,12 @@ class UsersController < ApplicationController
   end
 
   def update_basic_info
-  　 @user = Users.all
     if @user.update_attributes(basic_info_params)
       flash[:success] = "#{@user.name}の基本情報を更新しました。"
     else
       flash[:danger] = "#{@user.name}の更新は失敗しました。<br>" + @user.errors.full_messages.join("<br>")
     end
-    redirect_to user_url
+    redirect_to users_url
   end
 
 
@@ -80,7 +79,7 @@ class UsersController < ApplicationController
 
     
     def user_params
-      params.require(:user).permit(:name, :email, :department, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :department, :password, :password_confirmationbasic_ti)
     end
 
     def basic_info_params
@@ -94,13 +93,16 @@ class UsersController < ApplicationController
         redirect_to(root_url)
       end 
     end
-    #def search
-      #if params[:name].present?
-       # @users = User.where('name LINK ?', "%#{params[:name]}%")
-     # else
-        #@users = User.none
-     # end 
-   # end
+    def search
+      if params[:name].present?
+        @users = User.where('name LINK ?', "%#{params[:name]}%")
+      else
+        @users = User.none
+      end 
+    end
+    
+    def date_not_before_today
+    end 
     
   def query
     if params[:user].present? && params[:user][:name]

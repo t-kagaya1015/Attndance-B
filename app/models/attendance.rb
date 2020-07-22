@@ -10,6 +10,8 @@ class Attendance < ApplicationRecord
   #validate :datetime
   # 出勤・退勤時間どちらも存在する時、出勤時間より早い退勤時間は無効
   validate :started_at_than_finished_at_fast_if_invalid
+  #過去の日付に対するバリデーション
+  validate  :date_not_before_today
 
   def finished_at_is_invalid_without_a_started_at 
     errors.add(:started_at, "が必要です") if started_at.blank? && finished_at.present?
@@ -19,5 +21,9 @@ class Attendance < ApplicationRecord
     if started_at.present? && finished_at.present?
       errors.add(:started_at, "より早い退勤時間は無効です") if started_at > finished_at
     end
+  end
+  
+  def date_not_before_today
+    errors.add(:start_date, "は今日以降のものを選択してください") if start_date.nil? || start_date < Date.today
   end
 end

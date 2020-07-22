@@ -11,7 +11,7 @@
       <td>基本時間：<%= format_basic_info(@user.basic_time) %></td>
       <td>月初日：<%= l(@first_day, format: :short) %></td>
     </tr>
-
+     
     <tr>
       <td>所属：<%= @user.department.present? ? @user.department : "未所属" %></td>
       <td>名前：<%= @user.name %></td>
@@ -29,7 +29,9 @@
  <% end %>
 </div>
 
-<div>
+<div>        
+        <th></th>
+
   <table class="table table-striped table-bordered table-hover" id="table-attendances">
     <thead>
       <tr varign = "bottom">
