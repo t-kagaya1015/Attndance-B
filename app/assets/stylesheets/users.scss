@@ -47,17 +47,27 @@
 
 /* ユーザー一覧ページ */
 
-#table-users {
-  td {
-    vertical-align: middle;
-  }
+.flex-box {
+  padding:  10px;
+  display: flex; /* フレックスボックスにする */
+  flex-wrap: flex-start;
+  justify-content: space-between;        /* 縦の位置指定 */
+}
+.flex-item:nth-child(1) { 
+  justify-content: flex-start;
+}
+
+.flex-item:nth-child(4) {
+  justify-content: flex-end;
+}
+
+
   
  .table-cell-test th,
   .table-cell-test td {
     display: table-cell;
   }
  
-}
 
 /* 基本情報編集モーダルウインドウ */
 

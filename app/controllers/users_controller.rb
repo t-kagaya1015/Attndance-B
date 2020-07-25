@@ -102,6 +102,7 @@ class UsersController < ApplicationController
     end
     
     def date_not_before_today
+       @user = User.find(params[:user_id]) if started_date.nil?
     end 
     
   def query
