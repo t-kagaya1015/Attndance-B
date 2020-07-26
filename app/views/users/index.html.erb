@@ -2,56 +2,52 @@
 <h1>ユーザ一覧</h1>
  <thead>
   <div class="row">
-  <div class="boxContainer">
-   <div class="flex-box"> 
-    <div class="flex-item">
-     <%= will_paginate %>
-    </div>
-     <div class="flex-box">  <!--曖昧検索ボタン変更まだ不可-->
-      <div class="flex-item">
-        <%= form_tag(users_path, method: "get") do %>
-        <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
-        <!--%= label_tag :name, "性別" %>-->
-        <%= select_tag :gender, options_for_select(User.genders), include_blank: true %>
-        <%= submit_tag "検索" %>
-        <% end %>
+   <div class="boxContainer">
+    <div class="flex-box"> 
+     <div class="flex-item">
+      <%= will_paginate %>
+     </div>
+      <div class="flex-box">  <!--曖昧検索ボタン変更まだ不可-->
+       <div class="flex-item">
+          <%= form_tag(users_path, method: "get") do %>
+          <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
+          <!--%= label_tag :name, "性別" %>-->
+          <%= select_tag :gender, options_for_select(User.genders), include_blank: true %>
+          <%= submit_tag "検索" %>
+          <% end %>
+        </div>
       </div>
-    </div>
    </div>
-      <title><%= full_title(yield(:title)) %></title>
-     
+  </div>
+   <div class="flex-flow: row nowrap"> 
+    <div class="flex-box sub(1)"> 
+     <div class="flex-item"> 
+        <title><%= full_title(yield(:title)) %></title>
+     </div>
     </div>
-  </div>
-    <table class="table table-condensed table-hover" id="table-users">
-  </div>
+   <table class="table table-condensed table-hover" id="table-users">
+   </div>
+  </thead>  
  </div>
 </thead>
-        <tr>
-          <th><%= User.human_attribute_name :name %></th>
-          <th class="center"><!--%= User.human_attribute_name :department %--></th>
-          <% if current_user.admin? %>
-            <!--th class="center"><!--%= User.human_attribute_name :basic_time %></th>
-            <th class="center"><!--%= User.human_attribute_name :work_time %--></th>
-          <% end %>
-          <th></th>
-        </tr>
- </thead>
-
-    <% @users.each do |user| %>
+       
+  <div class="flex-box sub(2)">
+   <div class="flex-item">    
+      <% @users.each do |user| %>
       <tr>
-        <td>
+       <td>
           <% if current_user.admin? %>
             <%= link_to user.name, user %>
           <% else %>
             <%= user.name %>
           <% end %>
-        </td>
-        <!--td class="center"><!--%= user.department.present? ? user.department : "未所属" %></td-->
-        <!--% if current_user.admin? %>
-          <td class="center"><!--%= format_basic_info(user.basic_time) %></td-->
-          <!--td class="center"><!--%= format_basic_info(user.work_time) %></td-->
-      
-        <td class="center">
+      </td>
+   </div>
+  </div>
+       
+   <div class="flex-flow: row nowrap"> 
+    <div class="flex-box sub(3)"> 
+     <div class="flex-item" >    
           <% if current_user.admin? && !current_user?(user) %>
           <%= link_to "基本情報編集", edit_basic_info_user_path(user), class: "btn btn-ligit" %>
             <%= link_to "削除", user, method: :delete,
@@ -59,9 +55,12 @@
           <% end %>
         </td>
       </tr>
-    <% end %>
-  </table>
+      <% end %>
+     </div>
+    </div>
+   </div>
+   </table>
   <%= will_paginate %>
-</div>
+  </div>
 
 <!--モーダルウインドウ表示-->

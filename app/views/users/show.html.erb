@@ -23,8 +23,6 @@
 
 <div class="btn-users-show">
  <% if logged_in? %>
-   <!--%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default #{"disabled" unless current_user.admin?}" %--> 
- <!--% else %-->
    <%= link_to "勤怠を編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-default" %>
  <% end %>
 </div>

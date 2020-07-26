@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20191201091907) do
 
   create_table "attendances", force: :cascade do |t|
+    t.datetime "date"
     t.date "worked_on"
     t.datetime "started_at"
     t.datetime "finished_at"
@@ -32,8 +33,8 @@ ActiveRecord::Schema.define(version: 20191201091907) do
     t.string "remember_digest"
     t.boolean "admin", default: false
     t.string "department"
-    t.datetime "basic_time", default: "2020-07-07 23:00:00"
-    t.datetime "work_time", default: "2020-07-07 22:30:00"
+    t.datetime "basic_time", default: "2020-07-24 23:00:00"
+    t.datetime "work_time", default: "2020-07-24 22:30:00"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

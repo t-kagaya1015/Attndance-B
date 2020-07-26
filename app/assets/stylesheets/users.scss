@@ -58,11 +58,26 @@
 }
 
 .flex-item:nth-child(4) {
-  justify-content: flex-end;
+  flex-wrap: flex-start;
+}
+
+.flexcontainer{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flexitem{
+  width: 30%;
+  height: 100px;
+  text-align: center;
+  font-size: 40px;
 }
 
 
-  
+
+.left {
+    float: left;
+}
  .table-cell-test th,
   .table-cell-test td {
     display: table-cell;
