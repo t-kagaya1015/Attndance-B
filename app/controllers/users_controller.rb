@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @users = User.paginate(page: params[:page])
-    #@users = query
     # パラメータとして名前か性別を受け取っている場合は絞って検索する
     if params[:name].present?
     @users = @users.get_by_name params[:name]
@@ -52,7 +51,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    @user = User.find(params[:id])
+    @user = User.find_by(params[:id])
     flash[:success] = "#{@user.name}のデータを削除しました。"
     @user.destroy
     redirect_to users_path

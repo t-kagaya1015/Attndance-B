@@ -47,30 +47,11 @@
 
 /* ユーザー一覧ページ */
 
-.flex-box {
-  padding:  10px;
-  display: flex; /* フレックスボックスにする */
-  flex-wrap: flex-start;
-  justify-content: space-between;        /* 縦の位置指定 */
+.right {
+    text-align: right;
 }
-.flex-item:nth-child(1) { 
-  justify-content: flex-start;
-}
-
-.flex-item:nth-child(4) {
-  flex-wrap: flex-start;
-}
-
-.flexcontainer{
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.flexitem{
-  width: 30%;
-  height: 100px;
-  text-align: center;
-  font-size: 40px;
+.body {
+    border: solid;
 }
 
 

@@ -1,66 +1,43 @@
 <% provide(:title, 'All Users') %>
 <h1>ユーザ一覧</h1>
- <thead>
-  <div class="row">
-   <div class="boxContainer">
-    <div class="flex-box"> 
-     <div class="flex-item">
+  <thead>
+    <div class="row">
       <%= will_paginate %>
-     </div>
-      <div class="flex-box">  <!--曖昧検索ボタン変更まだ不可-->
-       <div class="flex-item">
-          <%= form_tag(users_path, method: "get") do %>
-          <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
-          <!--%= label_tag :name, "性別" %>-->
-          <%= select_tag :gender, options_for_select(User.genders), include_blank: true %>
-          <%= submit_tag "検索" %>
+    </div>
+    <div class="right">
+      <%= form_tag(users_path, method: "get") do %>
+      <%= label_tag :name, "名前" %><%= text_field_tag :name, params[:name] %>
+      <!--%= select_tag :gender, options_for_select(User.genders), include_blank: true %-->
+      <%= submit_tag "検索" %>
+      <% end %>
+    <br>
+       <title><%= full_title(yield(:title)) %></title>
+    </div>
+  </thead>   
+  <tbody>
+    <tr>
+      <div class="left box">
+        <table class="table table-condensed table-hover" id="table-users">
+          <% @users.each do |user| %>
+         <br>
+            <% if current_user.admin? %>
+              <%= link_to user.name, user %>
+            <% else %>
+              <%= user.name %>
+            <% end %>
+         
+            <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to "基本情報編集", edit_basic_info_user_path(user), class: "btn btn-ligit" %>
+              <%= link_to "削除", user, method: :delete,
+                  data: { confirm: "削除してよろしいですか？" }, class: "btn btn-ligit" %>
+          </div>        
           <% end %>
         </div>
+        <% end %>
       </div>
-   </div>
-  </div>
-   <div class="flex-flow: row nowrap"> 
-    <div class="flex-box sub(1)"> 
-     <div class="flex-item"> 
-        <title><%= full_title(yield(:title)) %></title>
-     </div>
-    </div>
-   <table class="table table-condensed table-hover" id="table-users">
-   </div>
-  </thead>  
- </div>
-</thead>
-       
-  <div class="flex-box sub(2)">
-   <div class="flex-item">    
-      <% @users.each do |user| %>
-      <tr>
-       <td>
-          <% if current_user.admin? %>
-            <%= link_to user.name, user %>
-          <% else %>
-            <%= user.name %>
-          <% end %>
-      </td>
-   </div>
-  </div>
-       
-   <div class="flex-flow: row nowrap"> 
-    <div class="flex-box sub(3)"> 
-     <div class="flex-item" >    
-          <% if current_user.admin? && !current_user?(user) %>
-          <%= link_to "基本情報編集", edit_basic_info_user_path(user), class: "btn btn-ligit" %>
-            <%= link_to "削除", user, method: :delete,
-                data: { confirm: "削除してよろしいですか？" }, class: "btn btn-ligit" %>
-          <% end %>
-        </td>
-      </tr>
-      <% end %>
-     </div>
-    </div>
-   </div>
-   </table>
+    </tr>
+  </tbody>
   <%= will_paginate %>
-  </div>
+</div>
 
 <!--モーダルウインドウ表示-->
